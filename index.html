@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Agenda Scolaire EPS — Planificateur pour éducateurs physiques. zonetotalsport.ca" />
+  <meta name="theme-color" content="#111111" />
+  <title>Agenda Scolaire — Zone Total Sport</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Schoolbell&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=1" />
+</head>
+<body>
+
+  <!-- LOADING SCREEN -->
+  <div id="loading-screen">
+    <img src="img/bucheron-salut.png" alt="Bûcheron" class="loading-mascot" />
+    <h1 class="loading-title">AGENDA SCOLAIRE</h1>
+    <p class="loading-sub">Zone Total Sport</p>
+    <div class="loading-bar"><div class="loading-fill"></div></div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div id="app" class="app-hidden">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="header-left">
+        <img src="img/bucheron-pointer.png" alt="" class="header-mascot" />
+        <div>
+          <h1 class="header-title">AGENDA SCOLAIRE</h1>
+          <p class="header-sub">Zone Total Sport</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <button onclick="downloadData()" class="hdr-btn" title="Sauvegarder">💾</button>
+        <label class="hdr-btn" title="Importer">📂<input type="file" id="importFile" accept=".json" onchange="importData(this)" hidden /></label>
+        <button onclick="window.print()" class="hdr-btn" title="Imprimer">🖨️</button>
+        <button onclick="resetAll()" class="hdr-btn hdr-btn-danger" title="Réinitialiser">🗑️</button>
+      </div>
+    </header>
+
+    <!-- TAB NAV -->
+    <nav class="tab-nav no-print">
+      <button class="tab-btn tab-active" data-tab="mensuel" onclick="switchTab('mensuel')">
+        <span class="tab-icon">📅</span>
+        <span class="tab-label">MENSUEL</span>
+      </button>
+      <button class="tab-btn" data-tab="hebdo" onclick="switchTab('hebdo')">
+        <span class="tab-icon">🗓️</span>
+        <span class="tab-label">HEBDO</span>
+      </button>
+      <button class="tab-btn" data-tab="sequentiel" onclick="switchTab('sequentiel')">
+        <span class="tab-icon">📝</span>
+        <span class="tab-label">SÉQUENTIEL</span>
+      </button>
+      <button class="tab-btn" data-tab="notes" onclick="switchTab('notes')">
+        <span class="tab-icon">📋</span>
+        <span class="tab-label">NOTES</span>
+      </button>
+    </nav>
+
+    <!-- ======================== -->
+    <!-- VUE MENSUELLE -->
+    <!-- ======================== -->
+    <section id="view-mensuel" class="view-section view-active">
+
+      <!-- Controls -->
+      <div class="month-controls no-print">
+        <button onclick="navMonth(-1)" class="ctrl-btn ctrl-prev">&laquo;</button>
+        <h2 id="monthDisplay" class="month-title">Septembre 2025</h2>
+        <button onclick="navMonth(1)" class="ctrl-btn ctrl-next">&raquo;</button>
+        <div class="ctrl-periods">
+          <label>Périodes :</label>
+          <select id="periodsCount" onchange="changePeriodCount()">
+            <option value="4">4</option>
+            <option value="5" selected>5</option>
+            <option value="6">6</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Calendar Grid -->
+      <div class="cal-wrapper">
+        <div class="cal-header-row">
+          <div class="cal-day-name">DIM</div>
+          <div class="cal-day-name">LUN</div>
+          <div class="cal-day-name">MAR</div>
+          <div class="cal-day-name">MER</div>
+          <div class="cal-day-name">JEU</div>
+          <div class="cal-day-name">VEN</div>
+          <div class="cal-day-name">SAM</div>
+        </div>
+        <div id="calendarBody" class="cal-grid"></div>
+      </div>
+
+      <!-- Bucheron decoratif -->
+      <div class="cal-mascot-float no-print">
+        <img src="img/bucheron-salut2.png" alt="" />
+      </div>
+
+    </section>
+
+    <!-- ======================== -->
+    <!-- VUE HEBDOMADAIRE -->
+    <!-- ======================== -->
+    <section id="view-hebdo" class="view-section">
+
+      <div class="hebdo-controls no-print">
+        <button onclick="prevHebdoWeek()" class="ctrl-btn ctrl-prev">&laquo;</button>
+        <div class="hebdo-selects">
+          <select id="hebdo-month-select" onchange="renderHebdo()"></select>
+          <select id="hebdo-week-select" onchange="renderHebdo()">
+            <option value="1">Sem. 1</option>
+            <option value="2">Sem. 2</option>
+            <option value="3">Sem. 3</option>
+            <option value="4">Sem. 4</option>
+            <option value="5">Sem. 5</option>
+          </select>
+        </div>
+        <button onclick="nextHebdoWeek()" class="ctrl-btn ctrl-next">&raquo;</button>
+      </div>
+
+      <div id="hebdo-grid" class="hebdo-grid"></div>
+
+      <div class="hebdo-notes-box">
+        <div class="hebdo-notes-header">
+          <img src="img/bucheron-lire.png" alt="" class="hebdo-notes-mascot" />
+          <h3>NOTES DE LA SEMAINE</h3>
+        </div>
+        <textarea id="hebdoNotes" placeholder="Tournois, rendez-vous, rappels..." oninput="saveHebdoNotes()"></textarea>
+      </div>
+
+    </section>
+
+    <!-- ======================== -->
+    <!-- VUE SÉQUENTIELLE -->
+    <!-- ======================== -->
+    <section id="view-sequentiel" class="view-section">
+
+      <div class="seq-hero">
+        <img src="img/bucheron-createur.png" alt="" class="seq-hero-mascot" />
+        <div>
+          <h2>PLANIFICATION SÉQUENTIELLE</h2>
+          <p>Crée tes séquences de cours en série!</p>
+        </div>
+      </div>
+
+      <div class="seq-config">
+        <div class="seq-config-item">
+          <label>Cycle scolaire</label>
+          <select id="niveau-scolaire">
+            <option value="1">1er Cycle (1re-2e)</option>
+            <option value="3">2e Cycle (3e-4e)</option>
+            <option value="5">3e Cycle (5e-6e)</option>
+          </select>
+        </div>
+        <div class="seq-config-item">
+          <label>Nombre de cours</label>
+          <input type="number" id="nombre-cours" min="1" max="20" value="6" />
+        </div>
+        <div class="seq-config-item">
+          <label>Titre de la séquence</label>
+          <input type="text" id="titre-planification" placeholder="Ex: Basketball extrême..." />
+        </div>
+      </div>
+
+      <div class="seq-objectives">
+        <h3><img src="img/bucheron-banque.png" alt="" class="inline-mascot" /> BANQUE D'OBJECTIFS PFEQ</h3>
+        <div class="seq-legend">
+          <span class="legend-dot legend-apprend"></span> Apprend
+          <span class="legend-dot legend-maitrise"></span> Maîtrise
+          <span class="legend-dot legend-reutilise"></span> Réutilise
+        </div>
+        <div id="tab-contents" class="seq-obj-grid"></div>
+      </div>
+
+      <div id="planning-grid-container" class="seq-cards-grid"></div>
+
+    </section>
+
+    <!-- ======================== -->
+    <!-- VUE NOTES -->
+    <!-- ======================== -->
+    <section id="view-notes" class="view-section">
+      <div class="notes-hero">
+        <img src="img/bucheron-mes-sae.png" alt="" class="notes-hero-mascot" />
+        <h2>MES NOTES</h2>
+      </div>
+      <div class="notes-area">
+        <h3>Notes de réunion / Générales</h3>
+        <textarea id="globalNotes" placeholder="Notes de réunions, rappels importants..." oninput="saveGlobalNotes()"></textarea>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="app-footer no-print">
+      <img src="img/bucheron-defi.png" alt="" class="footer-mascot" />
+      <p>Agenda Scolaire EPS &mdash; <strong>zonetotalsport.ca</strong></p>
+      <p class="footer-copy">&copy; 2025-2026 Zone Total Sport. Tous droits réservés.</p>
+    </footer>
+
+  </div>
+
+  <!-- ======================== -->
+  <!-- MODALS -->
+  <!-- ======================== -->
+
+  <!-- Modal Jour -->
+  <div id="dayModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modalDateTitle">Date</h2>
+        <button onclick="closeModal('dayModal')" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-field">
+          <label>Note spéciale</label>
+          <input type="text" id="dayNote" placeholder="Ex: Journée pédagogique..." />
+        </div>
+        <div id="periodsContainer"></div>
+        <button onclick="saveDay()" class="btn-save">ENREGISTRER</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Weekend -->
+  <div id="weekendModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header modal-header-weekend">
+        <h2 id="weekendDateTitle">Weekend</h2>
+        <button onclick="closeModal('weekendModal')" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <textarea id="weekendNote" placeholder="Notes pour la fin de semaine..." rows="8"></textarea>
+        <button onclick="saveWeekend()" class="btn-save">ENREGISTRER</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Ajout Bloc Hebdo -->
+  <div id="addBlockModal" class="modal-overlay">
+    <div class="modal-box modal-box-sm">
+      <div class="modal-header">
+        <h2>Ajouter un bloc</h2>
+        <button onclick="closeModal('addBlockModal')" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-field">
+          <label>Groupe</label>
+          <select id="hebdo-block-group"></select>
+        </div>
+        <div class="modal-field" id="hebdo-custom-wrap" style="display:none;">
+          <label>Nom du groupe</label>
+          <input type="text" id="hebdo-block-custom" placeholder="Nom..." />
+        </div>
+        <div class="modal-field">
+          <label>Activité</label>
+          <input type="text" id="hebdo-block-activity" placeholder="Ex: Ballon chasseur" />
+        </div>
+        <button onclick="confirmAddBlock()" class="btn-save">AJOUTER</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Séquentiel -->
+  <div id="course-modal" class="modal-overlay">
+    <div class="modal-box modal-box-lg">
+      <div class="modal-header">
+        <h2 id="modal-title">Cours</h2>
+        <button id="close-modal" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="seq-modal-grid">
+          <div class="modal-field"><label>Titre / Moyen d'action</label><input type="text" id="modal-moyen-action" /></div>
+          <div class="modal-field"><label>Date</label><input type="date" id="modal-date" /></div>
+        </div>
+        <div class="modal-field">
+          <label>Objectifs spécifiques</label>
+          <div id="modal-objectives-list" class="seq-obj-list"></div>
+        </div>
+        <div class="modal-field">
+          <label>Déroulement</label>
+          <div class="editor-toolbar">
+            <button class="editor-btn" data-command="bold"><b>B</b></button>
+            <button class="editor-btn" data-command="italic"><i>I</i></button>
+            <button class="editor-btn" data-command="insertUnorderedList">Liste</button>
+          </div>
+          <div id="modal-editor" class="editor-area" contenteditable="true"></div>
+        </div>
+        <button id="save-modal-btn" class="btn-save">VALIDER & FERMER</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=1"></script>
+</body>
+</html>

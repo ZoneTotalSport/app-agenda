@@ -26,19 +26,28 @@
 
 body {
   font-family:'Schoolbell',cursive,system-ui,sans-serif;
-  background:var(--cyan);
+  background-color:#f5f5dc;
   color:var(--text);
   min-height:100vh;
   font-size:1.1rem;
   overflow-x:hidden;
 }
 
+#gymBg {
+  position:fixed; inset:0; z-index:0;
+  background:url('img/gym-bg-roots.jpg') center/cover no-repeat;
+  opacity:1;
+  pointer-events:none;
+}
+
+#app { position:relative; z-index:1; }
+
 h1,h2,h3 { font-family:'Bangers',cursive; letter-spacing:2px; text-transform:uppercase; }
 
 /* ========== LOADING SCREEN ========== */
 #loading-screen {
   position:fixed; inset:0; z-index:999;
-  background:var(--cyan);
+  background:#f5f5dc url('img/gym-bg-roots.jpg') center/cover no-repeat;
   display:flex; flex-direction:column;
   align-items:center; justify-content:center;
   animation:fadeOutLoading 0.6s 2.5s forwards;

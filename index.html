@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Schoolbell&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="style.css?v=3" />
 </head>
 <body>
 
@@ -26,14 +26,14 @@
 
     <!-- HEADER -->
     <header class="app-header">
-      <div class="header-left">
+      <div class="header-center">
         <img src="img/bucheron-pointer.png" alt="" class="header-mascot" />
-        <div>
+        <div class="header-text">
           <h1 class="header-title">AGENDA SCOLAIRE</h1>
           <p class="header-sub">Zone Total Sport</p>
         </div>
       </div>
-      <div class="header-right">
+      <div class="header-actions">
         <button onclick="downloadData()" class="hdr-btn" title="Sauvegarder">💾</button>
         <label class="hdr-btn" title="Importer">📂<input type="file" id="importFile" accept=".json" onchange="importData(this)" hidden /></label>
         <button onclick="window.print()" class="hdr-btn" title="Imprimer">🖨️</button>

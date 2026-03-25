@@ -86,12 +86,12 @@ h1,h2,h3 { font-family:'Bangers',cursive; letter-spacing:2px; text-transform:upp
 }
 .header-center { display:flex; align-items:center; gap:18px; justify-content:center; }
 .header-text { text-align:center; }
-.header-mascot { height:80px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
+.header-mascot { height:120px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
 .header-title {
-  font-size:3.2rem; color:var(--white);
+  font-size:3.8rem; color:var(--white);
   letter-spacing:4px;
 }
-.header-sub { font-family:'Schoolbell',cursive; font-size:1.3rem; color:var(--cyan); font-weight:bold; }
+.header-sub { font-family:'Schoolbell',cursive; font-size:1.5rem; color:var(--cyan); font-weight:bold; }
 .header-actions { display:flex; gap:10px; margin-top:10px; }
 .hdr-btn {
   font-size:1.3rem; width:44px; height:44px;

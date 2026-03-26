@@ -91,7 +91,8 @@ h1,h2,h3 { font-family:'Bangers',cursive; letter-spacing:2px; text-transform:upp
   font-size:3.8rem; color:var(--white);
   letter-spacing:4px;
 }
-.header-sub { font-family:'Schoolbell',cursive; font-size:1.5rem; color:var(--cyan); font-weight:bold; }
+.header-sub { font-family:'Schoolbell',cursive; font-size:1.5rem; color:var(--cyan); font-weight:bold; text-decoration:none; }
+.header-sub:hover { text-decoration:underline; }
 .header-actions { display:flex; gap:10px; margin-top:10px; align-items:center; flex-wrap:wrap; justify-content:center; }
 .lang-switcher { display:flex; gap:4px; margin-right:8px; }
 .lang-btn {
@@ -473,6 +474,8 @@ h1,h2,h3 { font-family:'Bangers',cursive; letter-spacing:2px; text-transform:upp
 }
 .footer-mascot { height:100px; filter:drop-shadow(0 6px 15px rgba(0,0,0,0.15)); opacity:0.6; margin-bottom:14px; }
 .app-footer p { font-family:'Schoolbell',cursive; color:var(--navy); font-weight:bold; font-size:1.1rem; }
+.app-footer a { color:var(--navy); text-decoration:none; }
+.app-footer a:hover { text-decoration:underline; color:var(--cyan); }
 .footer-copy { font-size:0.85rem; color:#555; margin-top:4px; }
 
 /* ========== MODALS ========== */

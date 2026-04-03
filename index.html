@@ -13,12 +13,6 @@
   <link rel="stylesheet" href="style.css?v=10" />
 </head>
 <body>
-<!-- Bouton Accueil flottant -->
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
-<a href="https://zonetotalsport.ca" id="zts-home-btn" style="position:fixed;top:16px;left:16px;z-index:99999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#00E5FF,#0096C7);color:#fff;font-family:'Luckiest Guy',cursive;font-size:0.9rem;letter-spacing:1px;border-radius:10px;border:2px solid rgba(255,255,255,.3);text-decoration:none;box-shadow:0 3px 12px rgba(0,229,255,.3);transition:all .2s;">&#x1F3E0; Accueil</a>
-
-
-
   <!-- LOADING SCREEN -->
   <div id="loading-screen">
     <img src="img/bucheron-salut.png" alt="Bûcheron" class="loading-mascot" />
@@ -34,25 +28,28 @@
   <div id="app" class="app-hidden">
 
     <!-- HEADER -->
-    <header class="app-header">
-      <div class="header-center">
-        <img src="img/bucheron-pointer.png" alt="" class="header-mascot" />
-        <div class="header-text">
-          <h1 class="header-title" data-i18n="appTitle">AGENDA SCOLAIRE</h1>
-          <a href="https://www.zonetotalsport.ca/boite-a-outils-eps" class="header-sub" target="_blank">Zone Total Sport</a>
+    <header style="background:linear-gradient(135deg,#00E5FF,#00B8D4);position:sticky;top:0;z-index:50;box-shadow:0 4px 20px rgba(0,0,0,0.3);padding:12px 16px">
+      <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <a href="https://zonetotalsport.ca" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+          <img src="https://zonetotalsport.ca/bucheron-basketball.png" alt="Mascotte" style="height:50px;filter:drop-shadow(2px 2px 4px rgba(0,0,0,0.3))">
+          <span style="font-family:'Luckiest Guy',cursive;color:#fff;font-size:1rem;text-shadow:1px 1px 3px rgba(0,0,0,0.3)">🏠 Accueil</span>
+        </a>
+        <div style="flex:1;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px">
+          <img src="https://zonetotalsport.ca/bucheron-agenda.png" alt="App" style="height:50px;border-radius:12px;filter:drop-shadow(2px 2px 4px rgba(0,0,0,0.3))">
+          <h1 style="font-family:'Luckiest Guy',cursive;color:#fff;font-size:clamp(1.2rem,3vw,2rem);text-shadow:2px 2px 4px rgba(0,0,0,0.3);margin:0;letter-spacing:1px">AGENDA SCOLAIRE</h1>
         </div>
-      </div>
-      <div class="header-actions">
-        <div class="lang-switcher">
-          <button class="lang-btn lang-active" onclick="setLang('fr')">FR</button>
-          <button class="lang-btn" onclick="setLang('en')">EN</button>
-          <button class="lang-btn" onclick="setLang('zh')">中文</button>
-          <button class="lang-btn" onclick="setLang('es')">ES</button>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <div class="lang-switcher">
+            <button class="lang-btn lang-active" onclick="setLang('fr')">FR</button>
+            <button class="lang-btn" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" onclick="setLang('zh')">中文</button>
+            <button class="lang-btn" onclick="setLang('es')">ES</button>
+          </div>
+          <button onclick="downloadData()" class="hdr-btn" title="Sauvegarder">💾</button>
+          <label class="hdr-btn" title="Importer">📂<input type="file" id="importFile" accept=".json" onchange="importData(this)" hidden /></label>
+          <button onclick="window.print()" class="hdr-btn" title="Imprimer">🖨️</button>
+          <button onclick="resetAll()" class="hdr-btn hdr-btn-danger" title="Réinitialiser">🗑️</button>
         </div>
-        <button onclick="downloadData()" class="hdr-btn" title="Sauvegarder">💾</button>
-        <label class="hdr-btn" title="Importer">📂<input type="file" id="importFile" accept=".json" onchange="importData(this)" hidden /></label>
-        <button onclick="window.print()" class="hdr-btn" title="Imprimer">🖨️</button>
-        <button onclick="resetAll()" class="hdr-btn hdr-btn-danger" title="Réinitialiser">🗑️</button>
       </div>
     </header>
 

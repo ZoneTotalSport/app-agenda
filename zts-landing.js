@@ -129,7 +129,14 @@
         class: 'zts-landing-btn-outline',
         type: 'button',
         onclick: function () {
-          if (typeof cfg.ctaHelp.onClick === 'function') cfg.ctaHelp.onClick();
+          var target = document.getElementById('zts-landing-howto');
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            target.classList.add('zts-landing-flash');
+            setTimeout(function () { target.classList.remove('zts-landing-flash'); }, 1600);
+          } else if (typeof cfg.ctaHelp.onClick === 'function') {
+            cfg.ctaHelp.onClick();
+          }
         }
       }, '📖 ' + t(helpLabel, lang));
       wrap.appendChild(helpBtn);
@@ -139,7 +146,7 @@
   }
 
   function buildFeatures(lang) {
-    var wrap = el('div', { class: 'zts-landing-features-grid' });
+    var wrap = el('div', { class: 'zts-landing-features-grid', id: 'zts-landing-howto' });
     (cfg.features || []).forEach(function (f) {
       wrap.appendChild(el('div', { class: 'zts-landing-feature-card' }, [
         el('div', { class: 'zts-landing-feature-icon' }, f.emoji || ''),

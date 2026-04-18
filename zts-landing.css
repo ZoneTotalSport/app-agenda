@@ -1,0 +1,465 @@
+/* ==========================================================================
+   ZTS Landing Template — Design system réutilisable
+   Zone Total Sport — www.zonetotalsport.ca
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Couleurs ZTS */
+  --zts-primary: #00E5FF;
+  --zts-primary-dark: #00BCD4;
+  --zts-accent-color: #00E5FF; /* default; overridden inline on .zts-landing */
+  --zts-accent: var(--zts-accent-color);
+  --zts-navy: #0F0F2E;
+  --zts-yellow: #FFD600;
+  --zts-pink: #FF2A7A;
+  --zts-violet: #8B5CF6;
+  --zts-violet-light: #A78BFA;
+  --zts-green: #4CAF50;
+  --zts-orange: #FF9800;
+
+  /* Rayons */
+  --zts-radius-sm: 12px;
+  --zts-radius-md: 20px;
+  --zts-radius-lg: 32px;
+  --zts-radius-pill: 999px;
+
+  /* Ombres */
+  --zts-shadow-sm: 0 4px 12px rgba(15, 15, 46, 0.08);
+  --zts-shadow-md: 0 12px 32px rgba(15, 15, 46, 0.12);
+  --zts-shadow-lg: 0 24px 60px rgba(15, 15, 46, 0.18);
+
+  /* Polices */
+  --zts-font-title: 'Luckiest Guy', 'Bangers', cursive;
+  --zts-font-caps: 'Bangers', 'Luckiest Guy', cursive;
+  --zts-font-body: 'Schoolbell', 'Patrick Hand', cursive;
+
+  /* Espacements */
+  --zts-space-1: 0.5rem;
+  --zts-space-2: 1rem;
+  --zts-space-3: 1.5rem;
+  --zts-space-4: 2rem;
+  --zts-space-6: 3rem;
+  --zts-space-8: 4rem;
+}
+
+/* ==========================================================================
+   Wrapper fullscreen
+   ========================================================================== */
+.zts-landing {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #F0FBFF 0%, #E8F5FE 50%, #FFF 100%);
+  font-family: var(--zts-font-body);
+  color: var(--zts-navy);
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  /* Re-resolve accent against any --zts-accent-color set inline on this element */
+  --zts-accent: var(--zts-accent-color, #00E5FF);
+}
+
+/* When landing is mounted, lock html font-size to 16px so our rem values are predictable */
+html.zts-landing-open { font-size: 16px !important; }
+
+.zts-landing.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.zts-landing::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://zonetotalsport.ca/gym-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.zts-landing > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   Header cyan sticky
+   ========================================================================== */
+.zts-landing-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--zts-primary);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--zts-space-3);
+  padding: var(--zts-space-3) var(--zts-space-4);
+  box-shadow: 0 4px 16px rgba(0, 229, 255, 0.35);
+}
+
+.zts-landing-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.4rem;
+  background: linear-gradient(135deg, #00E5FF 0%, #00BCD4 100%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: var(--zts-radius-pill);
+  border: 3px solid #fff;
+  font-family: var(--zts-font-caps);
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  box-shadow: 0 6px 16px rgba(0, 188, 212, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.zts-landing-home-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 10px 24px rgba(0, 188, 212, 0.5);
+}
+
+.zts-landing-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zts-space-2);
+}
+
+.zts-landing-logo-icon {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.zts-landing-logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.zts-landing-logo-title {
+  font-family: var(--zts-font-title);
+  font-size: 2.2rem;
+  color: var(--zts-navy);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.zts-landing-logo-sub {
+  font-family: var(--zts-font-caps);
+  font-size: 0.9rem;
+  color: var(--zts-navy);
+  opacity: 0.75;
+  letter-spacing: 0.15em;
+  margin: 0;
+}
+
+.zts-landing-lang-switch {
+  display: flex;
+  gap: 0.35rem;
+  background: #fff;
+  border-radius: var(--zts-radius-pill);
+  padding: 0.35rem;
+  box-shadow: var(--zts-shadow-sm);
+}
+
+.zts-landing-lang-btn {
+  border: none;
+  background: transparent;
+  color: var(--zts-navy);
+  font-family: var(--zts-font-caps);
+  font-size: 0.95rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--zts-radius-pill);
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+
+.zts-landing-lang-btn.is-active {
+  background: var(--zts-accent);
+  color: #fff;
+}
+
+/* ==========================================================================
+   Hero card
+   ========================================================================== */
+.zts-landing-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--zts-space-6) var(--zts-space-4);
+}
+
+.zts-landing-hero-card {
+  background: #fff;
+  border-radius: var(--zts-radius-lg);
+  padding: var(--zts-space-6);
+  box-shadow: var(--zts-shadow-lg);
+  border: 3px solid rgba(0, 229, 255, 0.25);
+  animation: zts-fade-up 0.6s ease both;
+}
+
+.zts-landing-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: var(--zts-space-6);
+  align-items: center;
+}
+
+.zts-landing-mascot-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zts-landing-mascot {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 20px 30px rgba(15, 15, 46, 0.3));
+  animation: zts-bounce 4s ease-in-out infinite;
+}
+
+.zts-landing-title {
+  font-family: var(--zts-font-title);
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  line-height: 1.05;
+  color: var(--zts-navy);
+  letter-spacing: 0.02em;
+  margin: 0 0 0.4rem;
+  text-transform: uppercase;
+}
+
+.zts-landing-subtitle {
+  font-family: var(--zts-font-caps);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  color: var(--zts-accent);
+  letter-spacing: 0.05em;
+  margin: 0 0 var(--zts-space-3);
+  text-transform: uppercase;
+}
+
+.zts-landing-desc {
+  font-family: var(--zts-font-body);
+  font-size: 1.3rem;
+  line-height: 1.55;
+  color: #334;
+  margin: 0 0 var(--zts-space-4);
+}
+
+/* ==========================================================================
+   Badges pastel
+   ========================================================================== */
+.zts-landing-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-bottom: var(--zts-space-4);
+}
+
+.zts-landing-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--zts-radius-pill);
+  font-family: var(--zts-font-caps);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  background: #E0F8FE;
+  border: 2px solid var(--zts-primary);
+  color: var(--zts-navy);
+  white-space: nowrap;
+}
+
+.zts-landing-badge .zts-emoji { font-size: 1.25rem; }
+
+.zts-landing-badge.badge-cyan   { background: #E0F8FE; border-color: #00E5FF; }
+.zts-landing-badge.badge-green  { background: #E8F8EE; border-color: #4CAF50; }
+.zts-landing-badge.badge-pink   { background: #FFE6F0; border-color: #FF2A7A; }
+.zts-landing-badge.badge-violet { background: #EFE7FE; border-color: #8B5CF6; }
+.zts-landing-badge.badge-yellow { background: #FFF8D6; border-color: #FFD600; }
+.zts-landing-badge.badge-orange { background: #FFEFD6; border-color: #FF9800; }
+
+/* ==========================================================================
+   CTAs
+   ========================================================================== */
+.zts-landing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.zts-landing-btn-primary,
+.zts-landing-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--zts-font-caps);
+  font-size: 1.3rem;
+  letter-spacing: 0.05em;
+  padding: 1rem 1.8rem;
+  border-radius: var(--zts-radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-transform: uppercase;
+}
+
+.zts-landing-btn-primary {
+  background: var(--zts-primary);
+  color: var(--zts-navy);
+  border: 3px solid var(--zts-navy);
+  box-shadow: 4px 6px 0 var(--zts-navy);
+}
+
+.zts-landing-btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 8px 0 var(--zts-navy);
+}
+
+.zts-landing-btn-outline {
+  background: #fff;
+  color: var(--zts-navy);
+  border: 3px solid var(--zts-navy);
+}
+
+.zts-landing-btn-outline:hover {
+  background: var(--zts-navy);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Features grid (4 cols -> 2 -> 1)
+   ========================================================================== */
+.zts-landing-features-grid {
+  margin-top: var(--zts-space-6);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--zts-space-3);
+}
+
+.zts-landing-feature-card {
+  background: #fff;
+  border-radius: var(--zts-radius-md);
+  padding: var(--zts-space-3);
+  text-align: center;
+  border: 2px solid rgba(15, 15, 46, 0.08);
+  box-shadow: var(--zts-shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.zts-landing-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--zts-shadow-md);
+  border-color: var(--zts-accent);
+}
+
+.zts-landing-feature-icon {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+.zts-landing-feature-title {
+  font-family: var(--zts-font-caps);
+  font-size: 1.2rem;
+  color: var(--zts-navy);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 0.4rem;
+}
+
+.zts-landing-feature-desc {
+  font-family: var(--zts-font-body);
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: #475;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.zts-landing-footer {
+  margin-top: var(--zts-space-6);
+  padding: var(--zts-space-4) var(--zts-space-2);
+  text-align: center;
+  color: var(--zts-navy);
+  font-family: var(--zts-font-body);
+  font-size: 1.05rem;
+  opacity: 0.8;
+}
+
+.zts-landing-footer strong {
+  font-family: var(--zts-font-caps);
+  letter-spacing: 0.04em;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+@keyframes zts-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zts-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 960px) {
+  .zts-landing-header {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: var(--zts-space-2);
+    padding: var(--zts-space-2);
+  }
+  .zts-landing-lang-switch {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+  .zts-landing-logo-title { font-size: 1.8rem; }
+  .zts-landing-hero-grid {
+    grid-template-columns: 1fr;
+    gap: var(--zts-space-4);
+  }
+  .zts-landing-mascot { max-width: 280px; margin: 0 auto; }
+  .zts-landing-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  :root { --zts-radius-lg: 24px; }
+  .zts-landing-container { padding: var(--zts-space-3); }
+  .zts-landing-hero-card { padding: var(--zts-space-3); }
+  .zts-landing-logo-icon { width: 48px; height: 48px; }
+  .zts-landing-logo-title { font-size: 1.4rem; }
+  .zts-landing-logo-sub { font-size: 0.7rem; }
+  .zts-landing-home-btn { font-size: 0.95rem; padding: 0.5rem 0.9rem; }
+  .zts-landing-title { font-size: 2rem; }
+  .zts-landing-subtitle { font-size: 1.3rem; }
+  .zts-landing-desc { font-size: 1.1rem; }
+  .zts-landing-btn-primary,
+  .zts-landing-btn-outline {
+    font-size: 1.05rem;
+    padding: 0.8rem 1.3rem;
+    width: 100%;
+  }
+  .zts-landing-features-grid {
+    grid-template-columns: 1fr;
+  }
+  .zts-landing-feature-icon { font-size: 2.5rem; }
+}

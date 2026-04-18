@@ -11,6 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Bangers&family=Schoolbell&display=swap" rel="stylesheet" />
   <style>.hidden{display:none!important}</style>
   <link rel="stylesheet" href="style.css?v=10" />
+  <!-- ZTS Landing Template -->
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Bangers&family=Schoolbell&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="zts-landing.css">
 </head>
 <body>
   <!-- LOADING SCREEN -->
@@ -341,5 +344,47 @@
   </div>
 
   <script src="app.js?v=3"></script>
+<!-- ZTS Landing config + script -->
+<script>
+window.ZTS_LANDING_CONFIG = {
+  appId: 'agenda',
+  accentColor: '#A855F7',
+  homeUrl: 'https://zonetotalsport.ca',
+  mascot: 'https://zonetotalsport.ca/bucheron-agenda.png',
+  logoIcon: 'https://zonetotalsport.ca/logo-zts.png',
+  logoTitle: { fr: 'Agenda', en: 'Planner', zh: '日程表' },
+  logoSub: 'Zone Total Sport',
+  title: { fr: 'Agenda Scolaire ÉPS', en: 'PE School Planner', zh: '体育学校日程' },
+  subtitle: { fr: 'Planifie ta semaine!', en: 'Plan your week!', zh: '规划你的一周!' },
+  description: {
+    fr: "Ton agenda scolaire ÉPS tout-en-un. Planifie tes cours, tes suppléances, tes évaluations, tes rencontres parents et tes journées pédagogiques. Vue jour, semaine et mois, rappels et couleurs par type d'événement.",
+    en: "Your all-in-one PE school planner. Schedule lessons, sub days, evaluations, parent meetings and pro-D days. Day, week and month views, reminders and color-coded events.",
+    zh: "一站式体育课日程。安排课程、代课、评估、家长会和教研日。日/周/月视图,提醒和事件颜色编码。"
+  },
+  badges: [
+    { emoji: '🗓️', color: 'violet', text: { fr: 'Jour / Semaine / Mois', en: 'Day / Week / Month', zh: '日 / 周 / 月' } },
+    { emoji: '🎨', color: 'pink',   text: { fr: 'Couleurs par type', en: 'Color by type', zh: '按类型着色' } },
+    { emoji: '🔔', color: 'yellow', text: { fr: 'Rappels', en: 'Reminders', zh: '提醒' } },
+    { emoji: '💾', color: 'green',  text: { fr: 'Hors-ligne', en: 'Offline', zh: '离线' } },
+    { emoji: '📱', color: 'cyan',   text: { fr: 'Tous écrans', en: 'All screens', zh: '全屏幕' } }
+  ],
+  features: [
+    { emoji: '📚', title: { fr: 'Cours', en: 'Lessons', zh: '课程' }, desc: { fr: 'Lie tes SAÉ et tes groupes', en: 'Link your SAÉ and groups', zh: '关联 SAÉ 和组别' } },
+    { emoji: '🧑‍🏫', title: { fr: 'Suppléances', en: 'Sub days', zh: '代课日' }, desc: { fr: 'Planifie facilement tes remplacements', en: 'Plan your substitutions easily', zh: '轻松安排代课' } },
+    { emoji: '📊', title: { fr: 'Évaluations', en: 'Evaluations', zh: '评估' }, desc: { fr: 'Échéances d\'étape claires', en: 'Clear term deadlines', zh: '清晰学期节点' } },
+    { emoji: '👨‍👩‍👧', title: { fr: 'Rencontres parents', en: 'Parent meetings', zh: '家长会' }, desc: { fr: 'Notes et suivi intégrés', en: 'Notes and follow-up', zh: '笔记和跟进' } },
+    { emoji: '🏫', title: { fr: 'Journées péda', en: 'Pro-D days', zh: '教研日' }, desc: { fr: 'Ajoute congés et formations', en: 'Add days off and training', zh: '假期和培训' } },
+    { emoji: '🎨', title: { fr: 'Couleurs', en: 'Colors', zh: '颜色' }, desc: { fr: 'Repère visuel instantané', en: 'Instant visual cue', zh: '瞬间视觉提示' } },
+    { emoji: '🔄', title: { fr: 'Récurrences', en: 'Recurring', zh: '循环' }, desc: { fr: 'Cycles 9 ou 10 jours', en: '9 or 10-day cycles', zh: '9 或 10 天循环' } },
+    { emoji: '📥', title: { fr: 'Export', en: 'Export', zh: '导出' }, desc: { fr: 'PDF et impression', en: 'PDF and print', zh: 'PDF 和打印' } }
+  ],
+  ctaStart: { label: { fr: 'Commencer!', en: 'Start!', zh: '开始!' } },
+  ctaHelp: {
+    label: { fr: 'Comment utiliser', en: 'How to use', zh: '使用说明' },
+    onClick: function () { window.open('https://zonetotalsport.ca/articles/agenda-guide.html', '_blank'); }
+  }
+};
+</script>
+<script src="zts-landing.js"></script>
 </body>
 </html>

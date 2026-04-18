@@ -53,6 +53,10 @@
           <button onclick="window.print()" class="hdr-btn" title="Imprimer">🖨️</button>
           <button onclick="resetAll()" class="hdr-btn hdr-btn-danger" title="Réinitialiser">🗑️</button>
         </div>
+        <div id="zts-auth-status" style="display:flex;align-items:center;gap:8px;min-width:fit-content">
+          <span id="zts-auth-label" style="font-family:'Schoolbell',cursive;color:#fff;font-size:0.85rem;opacity:0.9"></span>
+          <button id="zts-auth-btn" style="font-family:'Luckiest Guy',cursive;padding:6px 14px;border-radius:999px;border:2px solid rgba(255,255,255,0.5);background:rgba(255,255,255,0.15);color:#fff;font-size:0.8rem;cursor:pointer;white-space:nowrap;display:none" onclick="ztsAuthAction()"></button>
+        </div>
       </div>
     </header>
 
@@ -386,5 +390,14 @@ window.ZTS_LANDING_CONFIG = {
 };
 </script>
 <script src="zts-landing.js"></script>
+<!-- ZTS Auth Gate -->
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Schoolbell&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script>
+(function(){var c={apiKey:'AIzaSyBoBxVP6g_ObKIJJ1jkviNFQ-wpJoWdjbA',authDomain:'zone-total-sport.firebaseapp.com',projectId:'zone-total-sport'};if(!firebase.apps.length)firebase.initializeApp(c);var o=document.createElement('div');o.id='zts-gate';o.innerHTML='<div style="position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center"><div style="background:#fff;border-radius:24px;padding:40px;max-width:440px;width:90%;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.3)"><img src="https://zonetotalsport.ca/bucheron-basketball.png" style="width:120px;margin:0 auto 16px" alt=""><h2 style="font-family:Luckiest Guy,cursive;font-size:2rem;color:#1e293b;margin:0 0 4px">Zone Total Sport</h2><p style="font-family:Schoolbell,cursive;color:#64748b;margin:0 0 24px;font-size:1.1rem">Connecte-toi ou inscris-toi gratuitement pour acceder a cette ressource.</p><input id="zg-e" type="email" placeholder="Courriel" style="font-family:Schoolbell,cursive;width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;margin-bottom:10px;font-size:1.1rem;box-sizing:border-box"><input id="zg-p" type="password" placeholder="Mot de passe" style="font-family:Schoolbell,cursive;width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;margin-bottom:16px;font-size:1.1rem;box-sizing:border-box"><button id="zg-l" style="font-family:Luckiest Guy,cursive;width:100%;padding:14px;background:#4f46e5;color:#fff;border:none;border-radius:12px;font-size:1.1rem;cursor:pointer;margin-bottom:8px;letter-spacing:1px">Se connecter</button><button id="zg-s" style="font-family:Luckiest Guy,cursive;width:100%;padding:14px;background:#00BCD4;color:#fff;border:none;border-radius:12px;font-size:1.1rem;cursor:pointer;margin-bottom:8px;letter-spacing:1px">Creer un compte gratuit</button><button id="zg-g" style="font-family:Schoolbell,cursive;width:100%;padding:14px;background:#fff;color:#333;border:2px solid #e2e8f0;border-radius:12px;font-size:1.1rem;font-weight:700;cursor:pointer">Connexion Google</button><p id="zg-err" style="font-family:Schoolbell,cursive;color:#ef4444;font-size:.9rem;margin:12px 0 0;display:none"></p></div></div>';document.body.appendChild(o);var err=document.getElementById('zg-err');function se(m){err.textContent=m;err.style.display='block';}document.getElementById('zg-l').onclick=function(){var e=document.getElementById('zg-e').value,p=document.getElementById('zg-p').value;if(!e||!p){se('Remplis tous les champs');return;}firebase.auth().signInWithEmailAndPassword(e,p).catch(function(r){se(r.message);});};document.getElementById('zg-s').onclick=function(){var e=document.getElementById('zg-e').value,p=document.getElementById('zg-p').value;if(!e||!p){se('Remplis tous les champs');return;}firebase.auth().createUserWithEmailAndPassword(e,p).catch(function(r){se(r.message);});};document.getElementById('zg-g').onclick=function(){firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function(r){se(r.message);});};firebase.auth().onAuthStateChanged(function(u){var g=document.getElementById('zts-gate');if(u&&g)g.remove();ztsUpdateAuthUI(u);});})();
+function ztsUpdateAuthUI(u){var l=document.getElementById('zts-auth-label'),b=document.getElementById('zts-auth-btn');if(!l||!b)return;if(u){var name=u.displayName||u.email.split('@')[0];l.textContent='\u{1F464} '+name;b.textContent='Deconnexion';b.style.display='inline-block';b.style.background='rgba(255,255,255,0.15)';b.style.borderColor='rgba(255,255,255,0.5)';}else{l.textContent='';b.textContent='Se connecter';b.style.display='inline-block';b.style.background='rgba(255,255,255,0.25)';b.style.borderColor='#fff';}}
+function ztsAuthAction(){var u=firebase.auth().currentUser;if(u){firebase.auth().signOut().then(function(){location.reload();});}else{location.reload();}}
+</script>
 </body>
 </html>

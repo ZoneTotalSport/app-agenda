@@ -73,6 +73,11 @@
   // -- render -----------------------------------------------------------------
   function buildLogo(lang) {
     var iconSrc = cfg.logoIcon || 'https://zonetotalsport.ca/logo-zts.png';
+    if (cfg.logoWide) {
+      return el('div', { class: 'zts-landing-logo zts-landing-logo--wide' }, [
+        el('img', { class: 'zts-landing-logo-icon zts-landing-logo-icon--wide', src: iconSrc, alt: 'Zone Total Sport' })
+      ]);
+    }
     return el('div', { class: 'zts-landing-logo' }, [
       el('img', { class: 'zts-landing-logo-icon', src: iconSrc, alt: '' }),
       el('div', { class: 'zts-landing-logo-text' }, [
